@@ -864,7 +864,7 @@ envs:
 
 services:
   - name: wib-infra
-    repository: "git@github.com:wib-com/wib-helm-infra.git"
+    repository: "https://github.com/wib-com/wib-helm-infra.git"
     targetRevision: develop
   - name: ti-agent-manager
     repository: "git@github.com:wib-com/ti-agent-manager.git"
