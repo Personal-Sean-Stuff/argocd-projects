@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: microservices-applicationset
+spec:
+  generators:
+  - list:
+      elements:
+{{- range .Values.services }}
+      - name: {{ .name }}
+        repoURL: '{{ .repository }}'
+        targetRevision: '{{ .targetRevision }}'
+{{- end }}
+  template:
+    metadata:
+      name: '{{`{{name}}`}}' # This will be replaced by each service's name
+    spec:
+      project: default
+      source:
+        repoURL: '{{`{{repoURL}}`}}' # This will be replaced by each service's repo URL
+        targetRevision: '{{`{{targetRevision}}`}}' # This will be replaced by each service's branch
+        path: 'deployment/'
+        helm:
+          values: |
+            global:
+{{- toYaml .Values.global | nindent 14 }}
+      destination:
+        server: 'https://kubernetes.default.svc' # This remains constant as all microservices are deployed to the same cluster
+        namespace: {{ .Release.Namespace }} # This remains constant assuming all microservices are deployed in the same namespace
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true

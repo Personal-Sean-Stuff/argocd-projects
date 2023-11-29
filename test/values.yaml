@@ -1,0 +1,871 @@
+global:
+  attack_simulator:
+    app_name: attack_simulator
+    as_credentials_configuration_endpoint: http://credentials-configuration-api-service
+    kafka:
+      dead_letter_config:
+        partitions: 1
+        replicas: 1
+        retention_ms: 2592000000
+        segment_bytes: 1073741824
+        topic_suffix: .dl
+      topics:
+        attack_simulator_crawler:
+          trigger_company_crawling:
+            name: crawler.crawl-company.trigger.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+          trigger_domain_crawling:
+            name: crawler.scan.trigger
+            partitions: 1
+            replicas: 1
+            retention_ms: 7200000
+        attack_simulator_service:
+          scan_companies_trigger:
+            name: api-testing.scan-all-companies.trigger
+            partitions: 1
+            replicas: 1
+            retention_ms: 7200000
+          scan_company_trigger:
+            name: api-testing.scan-company.trigger
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          scan_endpoint_trigger:
+            name: api-testing.scan-endpoint.trigger
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          simulated_attack_evidence:
+            cleanup_policy: compact
+            name: api-testing.simulated-attack.evidence.by.call-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+          simulated_attack_update:
+            cleanup_policy: compact
+            name: api-testing.simulated-attack.update
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+          validation_request:
+            cleanup_policy: compact
+            name: attack-simulator-validation-service.validation.request
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          validation_request_v2:
+            cleanup_policy: compact
+            name: vulnerability.validation-request.by.endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          simulated_attack_update_v2:
+            cleanup_policy: compact
+            name: api-testing.simulated-attack.update.v2
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+          validation_response:
+            name: attack-simulator-validation-service.validation.response
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+          validation_response_v2:
+            cleanup_policy: compact
+            name: vulnerability.validation-response.by.vulnerability-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+        wib_crawler_manager:
+          crawl_all_companies_trigger:
+            name: crawler.all.companies.scan.trigger
+            partitions: 1
+            replicas: 1
+            retention_ms: 86400000
+          crawl_company_domain_trigger:
+            name: crawler-scan.company-domain.trigger
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          js_crawler_scan_company_domain:
+            name: js-crawler.scan.company-domain
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          scan_status_update:
+            name: crawler-scan.status.updated.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          scan_update:
+            name: crawler-scan.updated.by.scan.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          watchtower_crawler_scan_company_domain:
+            name: watchtower-crawler.scan.company-domain
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+      topics_configmap_name: attack-simulator-kafka-topics-configmap
+  code_analysis:
+    app_name: code-analysis
+    ca_files_fetcher_endpoint: http://code-analysis-files-fetcher-api-service
+    ca_files_manager_endpoint: http://code-analysis-files-manager-api-service
+    ca_libraries_enricher_endpoint: http://code-analysis-dependent-libraries-enricher-api-service
+    ca_management_endpoint: http://code-analysis-management-api-service
+    ca_remediations_manager_endpoint: http://code-analysis-remediations-manager-api-service
+    ca_trivy_api_endpoint: http://code-analysis-trivy-api-service
+    s3_bucket_name: wib-all-dev-ca-files-manager-storage
+    s3_endpoint: https://s3.us-east-1.amazonaws.com
+    s3_region: us-east-1
+    s3_signature_version: s3v4
+    kafka:
+        dead_letter_config:
+          partitions: 1
+          replicas: 1
+          retention_ms: 2592000000
+          segment_bytes: 1073741824
+          topic_suffix: .dl
+        topics:
+          code_analysis_engines:
+            ca_engines_finding_dependent_libraries_created:
+              name: ca.engines.finding.dependent-libraries.created
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            ca_engines_finding_exposed_endpoint_created:
+              name: ca.engines.finding.exposed-endpoint.created
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            ca_engines_scan_completed:
+              name: ca.engines.scan.completed
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            ca_engines_scan_completed_by_id:
+              cleanup_policy: compact
+              name: ca-management.scan.completed.by.project-id
+              partitions: 30
+              replicas: 1
+              retention_ms: 86400000
+          code_analysis_files_fetcher:
+            fetching_failed:
+              name: files-fetcher.fetching.failed
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+              segment_bytes: 1073741824
+          code_analysis_files_manager:
+            cli_files_uploaded:
+              name: files-manager.cli-files-uploaded
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+              segment_bytes: 1073741824
+            files_requested:
+              name: files-manager.files.requested
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+              segment_bytes: 1073741824
+            files_uploaded:
+              name: files-manager.file.uploaded
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+              segment_bytes: 1073741824
+          code_analysis_issue_manager:
+            bola_issue_found:
+              name: issues-manager.bola-issue.found
+              partitions: 3
+              replicas: 1
+              retention_ms: 7200000
+            missing_auth_issue_found:
+              name: issues-manager.missing-auth-issue.found
+              partitions: 3
+              replicas: 1
+              retention_ms: 7200000
+            pii_issue_found:
+              name: issues-manager.pii-issue.found
+              partitions: 3
+              replicas: 1
+              retention_ms: 7200000
+            processing_completed:
+              name: issues-manager.processing.completed
+              partitions: 1
+              replicas: 1
+              retention_ms: 7200000
+            vulnerable_library_found:
+              name: issues-manager.vulnerable-library-issue.found
+              partitions: 3
+              replicas: 1
+              retention_ms: 7200000
+          code_analysis_management:
+            auto_resolve_issues:
+              name: ca-management.issues.auto-resolve
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            finding_dependent_library_created:
+              name: ca-management.finding.dependent-library.created
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            finding_exposed_endpoint_created:
+              name: ca-management.finding.exposed-endpoint.created
+              partitions: 12
+              replicas: 1
+              retention_ms: ca-management.finding.exposed-endpoint.created
+            finding_issue_auth_missing_created:
+              name: ca-management.finding-issue.auth-missing.created
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            finding_issue_vulnerable_library_created:
+              name: ca-management.finding-issue.vulnerable-library.created
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            project_created:
+              name: ca-management.project.created
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            publish_platform_endpoints:
+              name: ca-management.endpoints.publish
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            scan_cancelled:
+              name: ca-management.scan.cancelled
+              partitions: 1
+              replicas: 1
+              retention_ms: 86400000
+            scan_completed:
+              name: ca-management.scan.completed
+              partitions: 12
+              replicas: 1
+              retention_ms: -1
+            scan_created:
+              name: ca-management.scan.created
+              partitions: 12
+              replicas: 1
+              retention_ms: -1
+            scan_findings_count_update:
+              name: ca-management.scan.findings-processing-count.update
+              partitions: 1
+              replicas: 1
+              retention_ms: 86400000
+            scan_findings_processing_completed:
+              name: ca-management.scan.findings-processing.completed
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            scan_progress_update:
+              name: ca-management.scan-progress.update
+              partitions: 1
+              replicas: 1
+              retention_ms: 86400000
+            scan_started:
+              name: ca-management.scan.started
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+            scan_total_engines_progress_update:
+              name: ca-management.scan.total-engines-progress.update
+              partitions: 1
+              replicas: 1
+              retention_ms: 86400000
+            update_finding_issues_processing_status:
+              name: ca-management.finding.issues-processing-status.update
+              partitions: 1
+              replicas: 1
+              retention_ms: 86400000
+          code_analysis_ownership:
+            processing_completed:
+              name: ca-ownership.processing.completed
+              partitions: 12
+              replicas: 1
+              retention_ms: 86400000
+          code_analysis_remediations_manager:
+            code_fix_remediation_created:
+              name: remediations-manager.code-fix-remediation.created
+              partitions: 3
+              replicas: 1
+              retention_ms: 7200000
+        topics_configmap_name: code-analysis-kafka-topics-configmap
+  customer:
+    deserializer_format: wasm
+    name: test-customer
+    secrets_to_sync:
+    - wib-identity-internal-jwt
+    - wib-external-kafka-cluster-cluster-ca-cert
+    - wib-external-kafka-admin
+    - aws-eso-credentials
+    user_secret_name: customer-wib-admin-user-secret
+  external_kafka:
+    admin: wib-external-kafka-admin
+    ca: wib-external-kafka-cluster-cluster-ca-cert
+    cluster: wib-external-kafka-cluster
+    kafka_bootstrap_servers: wib-external-kafka-cluster-kafka-external-bootstrap:9093
+    kafka_bootstrap_servers_fqdn: wib-external-kafka-cluster-kafka-0.wib-external-kafka-cluster-kafka-brokers.wib-platform.svc.cluster.local:9092
+    kafka_plain_bootstrap_servers: wib-external-kafka-cluster-kafka-bootstrap:9092
+    namespace: wib-platform
+  external_secret:
+    aws_access_key: placeholder
+    aws_access_secret: placeholder
+  identity_jobs:
+    company_creation:
+      image: ghcr.io/wib-com/identity-init-secrets
+      version: develop
+    secret_creation:
+      image: ghcr.io/wib-com/identity-init-secrets
+      version: develop
+    secret_sync:
+      image: ghcr.io/wib-com/identity-init-secrets
+      version: develop
+    ti_token_creation:
+      image: ghcr.io/wib-com/identity-init-secrets
+      version: develop
+  internal_kafka:
+    cluster: wib-internal-kafka-cluster
+    kafka_bootstrap_servers: wib-internal-kafka-cluster-kafka-bootstrap:9092
+    kafka_bootstrap_servers_fqdn: wib-internal-kafka-cluster-kafka-bootstrap.wib-platform.svc.cluster.local:9092
+  is_on_premise: false
+  is_saas: false
+  mongodb:
+    cluster_ha: false
+    cluster_name: wib-mongodb
+    connection_string_prefix: mongodb+srv://
+    connection_string_suffix: ssl=false&authSource=admin
+    endpoint: wib-mongodb-svc.wib-platform.svc.cluster.local
+    mongodbSize: 10
+    settings_secret_name: wib-mongodb-admin-code-analysis
+    ui:
+      cpuRequest: '0.1'
+      image: mongo-express
+      memoryLimit: 1024Mi
+      memoryRequest: 100Mi
+      version: latest
+  oidc:
+    google_client_id: placeholder for google oidc client id
+  production: false
+  s3:
+    data_lake:
+      bucket: testing-sahar-traffic
+      endpoint: https://s3.us-east-1.amazonaws.com
+      path: raw
+      region: us-east-1
+    s3_bucket_name: wib-all-dev-wib-files-manager-storage
+    s3_endpoint: https://s3.us-east-1.amazonaws.com
+    s3_region: us-east-1
+    s3_signature_version: s3v4
+  wib:
+    agent_manager: traffic-inspection-agent-manager-api-service
+    app_name: wib-infra
+    app_version: develop
+    as_credentials_configuration_service_name: credentials-configuration-api-service
+    ca_file_manager_service_name: code-analysis-files-manager-api-service
+    ca_files_fetcher_service_name: code-analysis-files-fetcher-api-service
+    ca_management_service_name: code-analysis-management-api-service
+    contour_timeout_policy_time: 60s
+    fqdn: localhost
+    ignored_calls_secret_name: ignored-calls-secret
+    image_pull_secrets: dockerconfigjson-github-com
+    k8s_domain_name: svc.cluster.local
+    shared_config:
+      configmap_name: shared-config
+      otel:
+        exporter_otlp_endpoint: http://wib-platform-signoz-otel-collector.wib-platform.svc.cluster.local:4317
+    ti_receiver: traffic-inspection-receiver-service
+    traffic_inspection:
+      delimiter_name_ti_receiver: inbound-traffic
+      topic_name_ti_monitor_http_calls: http.calls
+    wib_api_spec_generator_service_name: wib-api-spec-generator-api-service
+    wib_blocking_policies_manager_endpoint: http://wib-blocking-policies-manager-api-service
+    wib_blocking_policies_manager_service_name: wib-blocking-policies-manager-api-service
+    wib_domains_manager_endpoint: http://wib-domains-manager-service
+    wib_domains_manager_service_name: wib-domains-manager-service
+    wib_evidences_service_name: wib-evidences-api-service
+    wib_files_manager_endpoint: http://wib-files-manager-api-service
+    wib_identity_endpoint: http://wib-identity-service
+    wib_identity_internal_jwt_secret_key_name: wib-identity-secret
+    wib_identity_internal_token_secret_name: wib-identity-internal-jwt
+    wib_identity_namespace: wib-platform
+    wib_identity_service_name: wib-identity-service
+    wib_incidents_mv_endpoint: http://wib-incidents-mv-api-service
+    wib_incidents_mv_service_name: wib-incidents-mv-api-service
+    wib_integrations_manager_endpoint: http://wib-integrations-manager-api-service
+    wib_integratios_manager_api_service_name: wib-integrations-manager-api-service
+    wib_inventory_mv_endpoint: http://wib-inventory-mv-api-service
+    wib_inventory_mv_service_name: wib-inventory-mv-api-service
+    wib_issues_manager_service_name: wib-issues-manager-api-service
+    wib_jira_endpoint: http://wib-jira-api-service
+    wib_jira_service_name: wib-jira-api-service
+    wib_notifications_center_endpoint: http://wib-notifications-center-api-service
+    wib_notifications_center_service_name: wib-notifications-center-api-service
+    wib_platform_namespace: wib-platform
+    wib_scheduler_endpoint: http://wib-scheduler-api-service
+    wib_settings_endpoint: http://wib-settings-api-service
+    wib_settings_service: wib-settings-api-service
+    wib_statistics_service_name: wib-statistics-api-service
+    wib_vulnerabilities_mv_endpoint: http://wib-vulnerabilities-mv-api-service
+    wib_vulnerabilities_mv_service_name: wib-vulnerabilities-mv-api-service
+  wib_email:
+    address: noreply@wib.com
+    host: smtp.gmail.com
+    port: 25
+  traffic_inspection_server:
+    app_name: traffic_inspection_server
+    kafka:
+      cluster_replicas: 1
+      config:
+        default_replication_factor: 1
+        min_insync_replicas: 1
+        offsets_topic_replication_factor: 1
+        transaction_state_log_min_isr: 1
+        transaction_state_log_replication_factor: 1
+      dead_letter_config:
+        partitions: 1
+        replicas: 1
+        retention_ms: 2592000000
+        segment_bytes: 1073741824
+        topic_suffix: .dl
+      image: quay.io/strimzi/kafka:0.35.1-kafka-3.4.0
+      operator:
+        image: quay.io/strimzi/operator:0.35.1
+      port_type: loadbalancer
+      storage_cap: 100Gi
+      topics:
+        agent_manager:
+          cnc_topic:
+            name: company.outbound-traffic.agents
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+          compact_health_topic:
+            cleanup_policy: compact
+            name: compact.health.topic
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+          health_topic:
+            name: health.topic
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+          manager_cnc_topic:
+            name: agents
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+          res_topic:
+            name: performance.result.topic
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+        auth_discovery:
+          conclusions:
+            name: auth-conclusions.updated.by.endpoint-id
+            partitions: 30
+            policy: compact
+            replicas: 1
+        call_transformer:
+          transformed_http_calls:
+            name: http.calls.transformed
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+        endpoint_discovery:
+          endpoint_conclusions:
+            cleanup_policy: compact
+            name: endpoint-conclusions.updated.by.possible-endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 50000000
+          endpoint_transformed_http_calls:
+            name: http.calls.endpoint.transformed
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+        fields_discovery:
+          conclusions:
+            cleanup_policy: compact
+            name: field-conclusions.updated.by.endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+        id_translator:
+          auth_dead_letter:
+            name: auth.conclusions.updated.by.endpoint.id.deadletter
+            partitions: 30
+            replicas: 1
+            retention_ms: 1209600000
+          auth_output:
+            cleanup_policy: compact
+            name: auth.conclusions.updated.by.platform.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 1209600000
+          calls_dead_letter:
+            name: calls.updated.by.endpoint.id.deadletter
+            partitions: 30
+            replicas: 1
+            retention_ms: 1209600000
+          calls_output:
+            name: calls.updated.by.platform.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 1209600000
+          endpoint_usage_dead_letter:
+            name: endpoint-usage.updated.by.endpoint.id.deadletter
+            partitions: 30
+            replicas: 1
+            retention_ms: 1209600000
+            segment_bytes: 1073741824
+          endpoint_usage_output:
+            cleanup_policy: compact
+            name: endpoint-usage.updated.by.platform.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 1209600000
+            segment_bytes: 1073741824
+          fields_dead_letter:
+            name: fields.updated.by.endpoint.id.deadletter
+            partitions: 30
+            replicas: 1
+            retention_ms: 1209600000
+          fields_output:
+            cleanup_policy: compact
+            name: fields.updated.by.platform.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 1209600000
+        incident_discovery:
+          incidents:
+            cleanup_policy: compact
+            name: incidents.updated.by.id
+            partitions: 30
+            replicas: 1
+          incidentsEnrichment:
+            cleanup_policy: compact
+            name: incidents-enrichment.updated.by.incident-id
+            partitions: 30
+            replicas: 1
+          incidentsModificationRequests:
+            name: incidents-modification.created.by.incident-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+          incidents_v2:
+            cleanup_policy: compact
+            name: incidents.updated.by.id.v2
+            partitions: 30
+            replicas: 1
+        matcher:
+          cnc_topic:
+            name: cnc.topic
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          http_calls:
+            name: http.calls
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          request_topic:
+            name: requests
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          response_topic:
+            name: responses
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+        misconfiguration_detection:
+          misconfigurations:
+            cleanup_policy: compact
+            name: misconfiguration.updated.by.endpoint-id-and-subtype
+            partitions: 30
+          misconfigurations_v2:
+            cleanup_policy: compact
+            name: misconfiguration.updated.by.endpoint-id-and-subtype.v2
+            partitions: 30
+        ml_adp:
+          endpoint_access_control_by_platform_id:
+            cleanup_policy: compact
+            name: access-control.updated.by.platform-endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+        platform_export:
+          exported_engine_endpoint:
+            name: engine-endpoint.updated.by.company-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+        traffic_archiver:
+          callId:
+            cleanup_policy: compact
+            name: call-id.updated.by.call-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+        usage_discovery:
+          usage_updated_by_endpoint_id:
+            cleanupPolicy: compact
+            name: endpoint-usage.updated.by.endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+      topics_configmap_name: traffic-inspection-server-kafka-topics-configmap
+      zookeeper:
+        cluster_replicas: 1
+        cpuRequest: '0.25'
+        memoryLimit: 4096Mi
+        memoryRequest: 1024Mi
+        storage_cap: 10Gi
+  wib_general:
+    kafka:
+      cluster_replicas: 1
+      config:
+        default_replication_factor: 1
+        message_max_bytes: 10000000
+        min_insync_replicas: 1
+        offsets_topic_replication_factor: 1
+        transaction_state_log_min_isr: 1
+        transaction_state_log_replication_factor: 1
+      dead_letter_config:
+        partitions: 1
+        replicas: 1
+        retention_ms: 2592000000
+        segment_bytes: 1073741824
+        topic_suffix: .dl
+      image: quay.io/strimzi/kafka:0.35.1-kafka-3.4.0
+      operator:
+        image: quay.io/strimzi/operator:0.35.1
+      storage_cap: 50Gi
+      topics:
+        wib_api_fuser:
+          api_fused_successfully:
+            name: api-fuser.api-fused.successfully
+            partitions: 12
+            replicas: 1
+            retention_ms: 86400000
+            segment_bytes: 1073741824
+          endpoint_merged:
+            cleanup_policy: compact
+            name: fuser.endpoint.merged.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          fused_endpoint_updated:
+            cleanup_policy: compact
+            name: fused-endpoint.updated.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          process_engines_files:
+            name: api-fuser.process.engines-files
+            partitions: 12
+            replicas: 1
+            retention_ms: 86400000
+            segment_bytes: 1073741824
+          trigger_engines_files_processing:
+            name: api-fuser.engines-files-processing.trigger
+            partitions: 1
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+        wib_compliance:
+          non_compliant_endpoint_detected_by_id:
+            name: wib-compliance.endpoint.non-compliant.detected.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+            segment_bytes: 1073741824
+        wib_domains_manager:
+          domain_updated_by_id:
+            name: wib-domains-manager.domain.updated.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+        wib_endpoint_enricher_activity_v2:
+          activity_updated_by_endpoint_id:
+            cleanup_policy: compact
+            name: wib.enrichers.endpoint.activity-v2.enriched.by.endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+            segment_bytes: 1073741824
+        wib_endpoint_enricher_business_impact:
+          business_impact_updated_by_endpoint_id:
+            cleanup_policy: compact
+            name: wib.enrichers.endpoint.business-impact-enriched.by.endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+            segment_bytes: 1073741824
+        wib_endpoint_enricher_pii:
+          data_type_enriched:
+            cleanup_policy: compact
+            name: wib.enrichers.endpoint.data-type-enriched
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+        wib_endpoints_fuser:
+          endpoint_merged:
+            cleanup_policy: compact
+            name: fuser.endpoint.merged.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          engine_endpoint_updated:
+            cleanup_policy: compact
+            name: engine-endpoint.updated.by.company-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          fused_endpoint_updated:
+            cleanup_policy: compact
+            name: fused-endpoint.updated.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+        wib_endpoints_validator:
+          endpoint_validations_updated_by_endpoint_id:
+            cleanup_policy: compact
+            name: endpoint-validations.updated.by.endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+        wib_evidences:
+          source_evidence:
+            name: source-evidence.updated.by.call-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 604800000
+        wib_files_manager:
+          engine_file_uploaded:
+            name: wib-files-manager.engine-file.uploaded
+            partitions: 12
+            replicas: 1
+            retention_ms: 86400000
+          replay_engine_file:
+            name: wib-files-manager.engine-file.replay
+            partitions: 12
+            replicas: 1
+            retention_ms: 86400000
+        wib_integrations_manager:
+          integration_created:
+            name: integrations-manager.integration.created
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          integration_deleted:
+            name: integrations-manager.integration.deleted
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+        wib_inventory_mv:
+          inventory_enriched_endpoint_updated_by_endpoint_id:
+            cleanup_policy: compact
+            name: inventory-enriched-endpoint.updated.by.endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+        wib_issues_manager:
+          endpoint_issue_status_updated:
+            cleanup_policy: compact
+            name: wib-issues-manager.issue.status.updated.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          endpoint_issues_updated:
+            name: wib-issues-manager.endpoint.issues.updated
+            partitions: 12
+            replicas: 1
+            retention_ms: 86400000
+          issue_update_updated_by_id:
+            cleanup_policy: compact
+            name: issue-update.updated.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+        wib_risk_engine:
+          risk_updated_by_endpoint_id:
+            cleanup_policy: compact
+            name: risk.updated.by.endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+        wib_statistics:
+          update_company_statistics_by_company_id:
+            name: statistics.update.by.company-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+            segment_bytes: 1073741824
+        wib_vulnerabilities:
+          vulnerability_updated_by_id:
+            cleanup_policy: compact
+            name: wib-vulnerabilities.vulnerability.updated.by.id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+          vulnerability_upserted_internal:
+            cleanup_policy: compact
+            name: wib-vulnerabilities.vulnerability.upserted.internal
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+      topics_configmap_name: wib-general-kafka-topics-configmap
+      ui:
+        cpuRequest: '0.1'
+        image: provectuslabs/kafka-ui
+        memoryLimit: 1024Mi
+        memoryRequest: 100Mi
+        version: latest
+      zookeeper:
+        cluster_replicas: 1
+        cpuRequest: '0.25'
+        memoryLimit: 4096Mi
+        memoryRequest: 1024Mi
+        storage_cap: 10Gi
+
+envs:
+  dev:
+    targetRevision: develop
+  staging:
+    targetRevision: main
+  prod:
+    targetRevision: 1.0.0
+
+services:
+  - name: wib-infra
+    repository: "https://github.com/wib-com/wib-helm-infra.git"
+    targetRevision: develop
+  - name: ti-agent-manager
+    repository: "https://github.com/wib-com/ti-agent-manager.git"
+    targetRevision: feature/WIB-2989
