@@ -13,9 +13,9 @@ spec:
         - name: installCRDs
           value: 'true'
     chart: external-secrets
-    destination:
-      server: 'https://kubernetes.default.svc' # This remains constant as all microservices are deployed to the same cluster
-      namespace: wib-platform # This remains constant assuming all microservices are deployed in the same namespace
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
+  destination:
+    server: 'https://kubernetes.default.svc' # This remains constant as all microservices are deployed to the same cluster
+    namespace: wib-platform # This remains constant assuming all microservices are deployed in the same namespace
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
