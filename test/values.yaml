@@ -869,3 +869,6 @@ services:
   - name: ti-agent-manager
     repository: "git@github.com:wib-com/ti-agent-manager.git"
     targetRevision: feature/WIB-2989
+  - name: wib-kafka-mirror
+    repository: https://github.com/wib-com/wib-kafka-mirror.git
+    targetRevision: feature/WIB-2989
