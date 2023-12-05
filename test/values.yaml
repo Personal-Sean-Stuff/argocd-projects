@@ -855,6 +855,13 @@ global:
         memoryRequest: 1024Mi
         storage_cap: 10Gi
 
+tags:
+  server: true
+  contour: true
+  mongodb: true
+  production: false
+  signoz: false
+
 envs:
   dev:
     targetRevision: develop

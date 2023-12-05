@@ -27,6 +27,8 @@ spec:
           values: |
             global:
 {{- toYaml .Values.global | nindent 14 }}
+            tags:
+{{- toYaml .Values.tags | nindent 14 }}
       destination:
         server: 'https://kubernetes.default.svc' # This remains constant as all microservices are deployed to the same cluster
         namespace: wib-platform # This remains constant assuming all microservices are deployed in the same namespace
