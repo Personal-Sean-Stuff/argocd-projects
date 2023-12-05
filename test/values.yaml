@@ -866,9 +866,267 @@ services:
   - name: wib-infra
     repository: "https://github.com/wib-com/wib-helm-infra.git"
     targetRevision: develop
+    
   - name: ti-agent-manager
-    repository: "git@github.com:wib-com/ti-agent-manager.git"
+    repository: "https://github.com/wib-com/ti-agent-manager.git"
     targetRevision: feature/WIB-2989
+
+  - name: wib-kafka-mirror
+    repository: https://github.com/wib-com/wib-kafka-mirror.git
+    targetRevision: feature/WIB-298
+
+  - name: code-analysis-management
+    repository: https://github.com/wib-com/code-analysis-management.git
+    targetRevision: feature/WIB-2989
+
+  - name: code-analysis-issues-manager
+    repository: https://github.com/wib-com/code-analysis-issues-manager.git
+    targetRevision: feature/WIB-2989
+
+  - name: code-analysis-remediations-manager
+    repository: https://github.com/wib-com/code-analysis-remediations-manager.git
+    targetRevision: feature/WIB-2989
+
+  - name: code-analysis-files-manager
+    repository: https://github.com/wib-com/code-analysis-files-manager.git
+    targetRevision: feature/WIB-2989
+
+  - name: code-analysis-engine-openapi
+    repository: https://github.com/wib-com/code-analysis-engine-openapi.git
+    targetRevision: feature/WIB-2989
+
+  - name: code-analysis-files-fetcher
+    repository: https://github.com/wib-com/code-analysis-files-fetcher.git
+    targetRevision: feature/WIB-2989
+
+  - name: code-analysis-engine-java
+    repository: https://github.com/wib-com/code-analysis-engine-java.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-identity
+    repository: https://github.com/wib-com/wib-identity.git
+    targetRevision: WIB-2970
+
+  - name: wib-integrations-manager
+    repository: https://github.com/wib-com/wib-integrations-manager.git
+    targetRevision: WIB-2970
+
+  - name: wib-scheduler
+    repository: https://github.com/wib-com/wib-scheduler.git
+    targetRevision: WIB-2970
+
+  - name: code-analysis-engine-dotnet
+    repository: https://github.com/wib-com/code-analysis-engine-dotnet.git
+    targetRevision: feature/WIB-2989
+
+  - name: code-analysis-trivy-api
+    repository: https://github.com/wib-com/code-analysis-trivy-api.git
+    targetRevision: feature/WIB-2989
+
+  - name: code-analysis-dependent-libraries-enricher
+    repository: https://github.com/wib-com/code-analysis-dependent-libraries-enricher.git
+    targetRevision: feature/WIB-2989
+
+  - name: ti-receiver
+    repository: https://github.com/wib-com/ti-receiver.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-files-manager
+    repository: https://github.com/wib-com/wib-files-manager.git
+    targetRevision: WIB-2970
+
+  - name: wib-settings
+    repository: https://github.com/wib-com/wib-settings.git
+    targetRevision: WIB-2970
+
+  - name: code-analysis-ownership
+    repository: https://github.com/wib-com/code-analysis-ownership.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-api-fuser
+    repository: https://github.com/wib-com/wib-api-fuser.git
+    targetRevision: WIB-2970
+
+  - name: wib-endpoint-enricher-pii
+    repository: https://github.com/wib-com/wib-endpoint-enricher-pii.git
+    targetRevision: WIB-2970
+
+  - name: wib-issues-manager
+    repository: https://github.com/wib-com/wib-issues-manager.git
+    targetRevision: WIB-2970
+
+  - name: ti-interceptor
+    repository: https://github.com/wib-com/ti-interceptor.git
+    targetRevision: feature/WIB-2989
+
+  - name: ti-matcher
+    repository: https://github.com/wib-com/ti-matcher.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-endpoint-enricher-business-impact
+    repository: https://github.com/wib-com/wib-endpoint-enricher-business-impact.git
+    targetRevision: WIB-2970
+
+  - name: ti-proxy
+    repository: https://github.com/wib-com/ti-proxy.git
+    targetRevision: feature/WIB-2989
+
+  - name: code-analysis-engine-javascript
+    repository: https://github.com/wib-com/code-analysis-engine-javascript.git
+    targetRevision: feature/WIB-2989
+
   - name: wib-kafka-mirror
     repository: https://github.com/wib-com/wib-kafka-mirror.git
     targetRevision: feature/WIB-2989
+
+  - name: ti-agent-manager
+    repository: https://github.com/wib-com/ti-agent-manager.git
+    targetRevision: feature/WIB-2989
+
+  - name: ti-call-transformer
+    repository: https://github.com/wib-com/ti-call-transformer.git
+    targetRevision: feature/WIB-2989
+
+  - name: ti-endpoint-discovery
+    repository: https://github.com/wib-com/ti-endpoint-discovery.git
+    targetRevision: feature/WIB-2989
+
+  - name: client
+    repository: https://github.com/wib-com/client.git
+    targetRevision: WIB-2970
+
+  - name: ti-incident-detection
+    repository: https://github.com/wib-com/ti-incident-detection.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-domains-manager
+    repository: https://github.com/wib-com/wib-domains-manager.git
+    targetRevision: WIB-2970
+
+  - name: ti-fields-discovery
+    repository: https://github.com/wib-com/ti-fields-discovery.git
+    targetRevision: feature/WIB-2989
+
+  - name: attack-simulator-credentials-configuration
+    repository: https://github.com/wib-com/attack-simulator-credentials-configuration.git
+    targetRevision: feature/WIB-2989
+
+  - name: ti-misconfiguration-detection
+    repository: https://github.com/wib-com/ti-misconfiguration-detection.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-incidents-mv
+    repository: https://github.com/wib-com/wib-incidents-mv.git
+    targetRevision: WIB-2970
+
+  - name: ti-id-translator
+    repository: https://github.com/wib-com/ti-id-translator.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-risk-engine
+    repository: https://github.com/wib-com/wib-risk-engine.git
+    targetRevision: WIB-2970
+
+  - name: wib-notifications-center
+    repository: https://github.com/wib-com/wib-notifications-center.git
+    targetRevision: WIB-2970
+
+  - name: wib-jira
+    repository: https://github.com/wib-com/wib-jira.git
+    targetRevision: WIB-2970
+
+  - name: code-analysis-engine-python
+    repository: https://github.com/wib-com/code-analysis-engine-python.git
+    targetRevision: feature/WIB-2989
+
+  - name: attack-simulator-crawler
+    repository: https://github.com/wib-com/attack-simulator-crawler.git
+    targetRevision: feature/WIB-2989
+
+  - name: ti-usage-discovery
+    repository: https://github.com/wib-com/ti-usage-discovery.git
+    targetRevision: feature/WIB-2989
+
+  - name: ti-ml-etl
+    repository: https://github.com/wib-com/ti-ml-etl.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-inventory-mv
+    repository: https://github.com/wib-com/wib-inventory-mv.git
+    targetRevision: WIB-2970
+
+  - name: ti-auth-discovery
+    repository: https://github.com/wib-com/ti-auth-discovery.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-statistics
+    repository: https://github.com/wib-com/wib-statistics.git
+    targetRevision: WIB-2970
+
+  - name: wib-compliance
+    repository: https://github.com/wib-com/wib-compliance.git
+    targetRevision: WIB-2970
+
+  - name: wib-api-spec-generator
+    repository: https://github.com/wib-com/wib-api-spec-generator.git
+    targetRevision: WIB-2970
+
+  - name: ti-platform-export
+    repository: https://github.com/wib-com/ti-platform-export.git
+    targetRevision: feature/WIB-2989
+
+  - name: ti-traffic-archiver
+    repository: https://github.com/wib-com/ti-traffic-archiver.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-vulnerabilities-mv
+    repository: https://github.com/wib-com/wib-vulnerabilities-mv.git
+    targetRevision: WIB-2970
+
+  - name: wib-evidences
+    repository: https://github.com/wib-com/wib-evidences.git
+    targetRevision: WIB-2970
+
+  - name: attack-simulator-service
+    repository: https://github.com/wib-com/attack-simulator-service.git
+    targetRevision: feature/WIB-2989
+
+  - name: ml-delta-etl
+    repository: https://github.com/wib-com/ml-delta-etl.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-blocking-policies-manager
+    repository: https://github.com/wib-com/wib-blocking-policies-manager.git
+    targetRevision: WIB-2970
+
+  - name: wib-endpoint-enricher-activity-v2
+    repository: https://github.com/wib-com/wib-endpoint-enricher-activity-v2.git
+    targetRevision: WIB-2970
+
+  - name: ml-ADP
+    repository: https://github.com/wib-com/ml-ADP.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-crawler-manager
+    repository: https://github.com/wib-com/wib-crawler-manager.git
+    targetRevision: WIB-2970
+
+  - name: watch-tower-crawler
+    repository: https://github.com/wib-com/watch-tower-crawler.git
+    targetRevision: feature/WIB-2989
+
+  - name: wib-endpoints-validator
+    repository: https://github.com/wib-com/wib-endpoints-validator.git
+    targetRevision: WIB-2970
+
+  - name: wib-endpoints-fuser
+    repository: https://github.com/wib-com/wib-endpoints-fuser.git
+    targetRevision: WIB-2970
+
+  - name: wib-vulnerabilities
+    repository: https://github.com/wib-com/wib-vulnerabilities.git
+    targetRevision: WIB-2970
+
+  - name: wib-vulnerabilities-detectors
+    repository: https://github.com/wib-com/wib-vulnerabilities-detectors.git
+    targetRevision: WIB-2970
