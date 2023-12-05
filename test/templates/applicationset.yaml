@@ -29,5 +29,6 @@ spec:
         server: 'https://kubernetes.default.svc' # This remains constant as all microservices are deployed to the same cluster
         namespace: wib-platform # This remains constant assuming all microservices are deployed in the same namespace
       syncPolicy:
+        automated: {}
         syncOptions:
           - CreateNamespace=true
