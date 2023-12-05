@@ -874,7 +874,7 @@ services:
 
   - name: wib-kafka-mirror
     repository: https://github.com/wib-com/wib-kafka-mirror.git
-    targetRevision: feature/WIB-298
+    targetRevision: feature/WIB-2989
 
   - name: code-analysis-management
     repository: https://github.com/wib-com/code-analysis-management.git
@@ -967,10 +967,6 @@ services:
   - name: wib-endpoint-enricher-business-impact
     repository: https://github.com/wib-com/wib-endpoint-enricher-business-impact.git
     targetRevision: WIB-2970
-
-  - name: ti-proxy
-    repository: https://github.com/wib-com/ti-proxy.git
-    targetRevision: feature/WIB-2989
 
   - name: code-analysis-engine-javascript
     repository: https://github.com/wib-com/code-analysis-engine-javascript.git
@@ -1110,7 +1106,7 @@ services:
 
   - name: wib-crawler-manager
     repository: https://github.com/wib-com/wib-crawler-manager.git
-    targetRevision: WIB-2970
+    targetRevision: feature/WIB-2989
 
   - name: watch-tower-crawler
     repository: https://github.com/wib-com/watch-tower-crawler.git
@@ -1122,7 +1118,7 @@ services:
 
   - name: wib-endpoints-fuser
     repository: https://github.com/wib-com/wib-endpoints-fuser.git
-    targetRevision: WIB-2970
+    targetRevision: feature/WIB-2989
 
   - name: wib-vulnerabilities
     repository: https://github.com/wib-com/wib-vulnerabilities.git
