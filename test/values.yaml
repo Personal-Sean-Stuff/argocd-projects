@@ -1,3 +1,4 @@
+applicationset_name: seans-application-set
 global:
   attack_simulator:
     app_name: attack_simulator
