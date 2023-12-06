@@ -30,7 +30,7 @@ spec:
             global:
 {{- toYaml .Values.global | nindent 14 }}
             tags:
-              production_client: '{{`{{production_client}}`}}'
+              production_client: {{`{{production_client}}`}}
             customer_fqdn: '{{`{{customer_fqdn}}`}}'
       destination:
         server: 'https://kubernetes.default.svc' # This remains constant as all microservices are deployed to the same cluster
