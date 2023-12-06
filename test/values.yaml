@@ -661,6 +661,12 @@ global:
         image: quay.io/strimzi/operator:0.35.1
       storage_cap: 50Gi
       topics:
+        wib_settings:
+          settings_updated:
+            name: "settings.updated.by.company-id"
+            partitions: 30
+            replicas: 1
+            cleanup_policy: compact
         wib_api_fuser:
           api_fused_successfully:
             name: api-fuser.api-fused.successfully
