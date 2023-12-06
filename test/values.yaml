@@ -661,6 +661,13 @@ global:
         image: quay.io/strimzi/operator:0.35.1
       storage_cap: 50Gi
       topics:
+        wib_vulnerabilities_detectors:
+          vulnerability_detectors_completed:
+            cleanup_policy: compact
+            name: wib-vulnerability-detectors.completed.by.endpoint-id
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
         wib_settings:
           settings_updated:
             name: "settings.updated.by.company-id"
@@ -1142,8 +1149,8 @@ services:
 
   - name: wib-vulnerabilities
     repository: https://github.com/wib-com/wib-vulnerabilities.git
-    targetRevision: WIB-2970
+    targetRevision: feature/WIB-2989
 
   - name: wib-vulnerabilities-detectors
     repository: https://github.com/wib-com/wib-vulnerabilities-detectors.git
-    targetRevision: WIB-2970
+    targetRevision: feature/WIB-2989
