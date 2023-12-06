@@ -753,13 +753,15 @@ global:
         wib_endpoints_fuser:
           endpoint_merged:
             cleanup_policy: compact
-            name: fuser.endpoint.merged.by.id
+            id: fuser.endpoint.merged.by.id.v2
+            name: fuser.endpoint.merged.by.id.v2
             partitions: 30
             replicas: 1
             retention_ms: 7200000
             segment_bytes: 1073741824
           engine_endpoint_updated:
             cleanup_policy: compact
+            id: engine-endpoint.updated.by.company-id-internal
             name: engine-endpoint.updated.by.company-id
             partitions: 30
             replicas: 1
@@ -767,11 +769,10 @@ global:
             segment_bytes: 1073741824
           fused_endpoint_updated:
             cleanup_policy: compact
-            name: fused-endpoint.updated.by.id
+            id: fused-endpoint.updated.by.id.v2-internal
+            name: fused-endpoint.updated.by.id.v2
             partitions: 30
             replicas: 1
-            retention_ms: 7200000
-            segment_bytes: 1073741824
         wib_endpoints_validator:
           endpoint_validations_updated_by_endpoint_id:
             cleanup_policy: compact
