@@ -875,7 +875,56 @@ global:
         memoryLimit: 4096Mi
         memoryRequest: 1024Mi
         storage_cap: 10Gi
-
+  traffic_inspection:
+    kafka:
+      dead_letter_config:
+        partitions: 1
+        replicas: 1
+        retention_ms: 2592000000
+        segment_bytes: 1073741824
+        topic_suffix: .dl
+      outbound_delimiter: outbound-traffic
+      topics:
+        customer:
+          agents:
+            name: agents
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          health:
+            name: health.topic
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          metrics:
+            name: metrics
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          requests:
+            name: requests
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+          responses:
+            name: responses
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+        customer_outbound:
+          agents:
+            name: agents
+            partitions: 3
+            replicas: 1
+            retention_ms: 7200000
+            segment_bytes: 1073741824
+      topics_configmap_name: traffic-inspection-kafka-topics-configmap
+      topics_delimiter: inbound-traffic
 tags:
   server: true
   contour: true
@@ -890,6 +939,12 @@ envs:
     targetRevision: main
   prod:
     targetRevision: 1.0.0
+
+customers:
+  - name: sean-test-customer
+    targetRevision: feature/WIB-2989
+    production_client: false
+    customer_fqdn: sean-test-customer.wib-security.com
 
 services:
   - name: wib-infra

@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: {{ $.Values.applicationset_name }}-customers
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+{{- range .Values.customers }}
+      - name: {{ .name }}
+        targetRevision: '{{ .targetRevision }}'
+        production_client: '{{ .production_client }}'
+        customer_fqdn: '{{ .customer_fqdn }}'
+{{- end }}
+  template:
+    metadata:
+      name: '{{`{{name}}`}}' # This will be replaced by each service's name
+      labels:
+        name: {{ $.Values.applicationset_name }}
+        customer: true
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/wib-com/wib-customer.git' # This will be replaced by each service's repo URL
+        targetRevision: '{{`{{targetRevision}}`}}' # This will be replaced by each service's branch
+        path: '.'
+        helm:
+          values: |
+            global:
+{{- toYaml .Values.global | nindent 14 }}
+            tags:
+{{- toYaml .Values.tags | nindent 14 }}
+            tags:
+              production_client: '{{`{{production_client}}`}}'
+            customer_fqdn: '{{`{{customer_fqdn}}`}}'
+      destination:
+        server: 'https://kubernetes.default.svc' # This remains constant as all microservices are deployed to the same cluster
+        namespace: '{{`{{name}}`}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
