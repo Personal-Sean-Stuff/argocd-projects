@@ -707,6 +707,13 @@ global:
             replicas: 1
             retention_ms: 86400000
             segment_bytes: 1073741824
+          non_compliant_endpoint_detected_by_id_v2:
+            name: "wib-compliance.endpoint.non-compliant.detected.by.id.v2"
+            partitions: 30
+            replicas: 1
+            retention_ms: 86400000
+            segment_bytes: 1073741824
+            cleanup_policy: compact
         wib_domains_manager:
           domain_updated_by_id:
             name: wib-domains-manager.domain.updated.by.id
