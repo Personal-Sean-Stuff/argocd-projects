@@ -944,7 +944,7 @@ customers:
   - name: sean-test-customer
     targetRevision: feature/WIB-2989
     production_client: false
-    customer_fqdn: sean-test-customer.wib-security.com
+    customer_fqdn: sean-test-customer.dev.wib-security.com
 
 services:
   - name: wib-infra
