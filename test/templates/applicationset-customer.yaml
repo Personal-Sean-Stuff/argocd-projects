@@ -18,7 +18,7 @@ spec:
       name: '{{`{{name}}`}}' # This will be replaced by each service's name
       labels:
         name: {{ $.Values.applicationset_name }}
-        customer: true
+        type: customer
     spec:
       project: default
       source:
