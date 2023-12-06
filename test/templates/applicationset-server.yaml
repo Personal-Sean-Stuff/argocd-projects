@@ -24,9 +24,9 @@ spec:
         targetRevision: '{{`{{targetRevision}}`}}' # This will be replaced by each service's branch
         path: 'deployment/'
         helm:
-          valueFiles:
-            - global.yaml
           values: |
+            global:
+{{- toYaml .Values.global | nindent 14 }}
             tags:
 {{- toYaml .Values.tags | nindent 14 }}
       destination:

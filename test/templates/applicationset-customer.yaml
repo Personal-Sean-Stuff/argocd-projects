@@ -26,10 +26,9 @@ spec:
         targetRevision: '{{`{{targetRevision}}`}}' # This will be replaced by each service's branch
         path: '.'
         helm:
-          fileParameters:
-            - name: globals
-              path: ../global.yaml
           values: |
+            global:
+{{- toYaml .Values.global | nindent 14 }}
             tags:
               production_client: {{`{{production_client}}`}}
             customer_fqdn: '{{`{{customer_fqdn}}`}}'
