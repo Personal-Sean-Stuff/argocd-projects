@@ -881,7 +881,7 @@ tags:
   contour: true
   mongodb: true
   production: false
-  signoz: true
+  signoz: false
 
 envs:
   dev:
