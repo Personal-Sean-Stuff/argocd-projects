@@ -26,3 +26,5 @@ for repo_url in "${repos[@]}"; do
   echo "----------------------------------------"
 done
 
+argocd repo add --name wib-customer https://github.com/wib-com/wib-customer.git --username "$argocd_username" --password "$argocd_password"
+
