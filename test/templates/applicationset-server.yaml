@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: {{ $.Values.applicationset_name }}
+  name: {{ $.Values.applicationset_name }}-server
   namespace: argocd
 spec:
   generators:
@@ -24,9 +24,10 @@ spec:
         targetRevision: '{{`{{targetRevision}}`}}' # This will be replaced by each service's branch
         path: 'deployment/'
         helm:
+          fileParameters:
+          - name: globals
+            path: ../global.yaml
           values: |
-            global:
-{{- toYaml .Values.global | nindent 14 }}
             tags:
 {{- toYaml .Values.tags | nindent 14 }}
       destination:
